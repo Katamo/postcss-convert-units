@@ -1,0 +1,6 @@
+{
+  "tasks": {
+    "test": "deno test --allow-env src/spec/index.spec.ts",
+    "bundle": "deno bundle ./src/index.ts ./src/index.js"
+  }
+}

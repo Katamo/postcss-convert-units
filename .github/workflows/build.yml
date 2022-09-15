@@ -19,7 +19,7 @@ jobs:
 
 
       - name: Run tests
-        run: Deno task test
+        run: deno task test
 
       - uses: actions/checkout@v2
 

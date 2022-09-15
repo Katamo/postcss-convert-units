@@ -1,0 +1,30 @@
+name: Deploy plugin
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+
+      - name: Setup Deno environment
+        uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
+
+
+      - name: Run tests
+        run: Deno task test
+
+      - uses: actions/checkout@v2
+
+      - name: Run script file
+        run: |
+          chmod +x ./deploy.sh
+          ./deploy.sh
+        shell: sh

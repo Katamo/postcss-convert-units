@@ -3,6 +3,7 @@
 rm -rf dist
 mkdir dist
 
-cp src/* dist/
-deno task deploy
+cp -rf src/* dist/
+
+deno task bundle
 mv src/index.js dist/index.js

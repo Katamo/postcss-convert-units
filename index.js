@@ -1,30 +1,36 @@
 /**
  * @type {import('postcss').PluginCreator}
  */
-module.exports = (opts = {}) => {
-  // Work with options here
+module.exports = (opts) => {
+  let myUnits = [];
+
+  if (!opts || !opts.units) {
+    myUnits.push({
+        from: 'sp',
+        convert: val => `${val * 0.25}rem`
+      }
+    );
+  } else {
+    myUnits = [...opts.units];
+  }
 
   return {
     postcssPlugin: 'postcss-space-unit',
-    /*
-    Root (root, postcss) {
-      // Transform CSS AST here
-    }
-    */
 
-    /*
-    Declaration (decl, postcss) {
-      // The faster way to find Declaration node
-    }
-    */
-
-    /*
     Declaration: {
-      color: (decl, postcss) {
-        // The fastest way find Declaration node if you know property name
+      '*': (decl) => {
+        myUnits.forEach(
+          (unit) => {
+            var regex = new RegExp('(([\\d.]+)' + unit.from + ')', 'g');
+
+            decl.value = decl.value.replace(
+              regex,
+              (_match, _p1, p2) => unit.convert(p2),
+            );
+          }
+        );
       }
-    }
-    */
+    },
   }
 }
 

@@ -7,3 +7,5 @@ cp -rf src/* dist/
 
 deno task bundle
 mv src/index.js dist/index.js
+
+ls

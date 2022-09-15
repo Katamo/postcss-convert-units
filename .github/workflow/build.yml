@@ -2,7 +2,7 @@ name: Deploy plugin
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:

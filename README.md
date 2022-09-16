@@ -5,7 +5,7 @@ This is a PostCSS plugin
 To allow custom property unit values. 
 
 Main motivation came from this dissusion draft on W3C CSS working group 
-[https://github.com/w3c/csswg-drafts/issues/7379](css-variables-2 Custom units as simple variable desugaring)
+[css-variables-2 Custom units as simple variable desugaring](https://github.com/w3c/csswg-drafts/issues/7379)
 
 The goal here is allow to have custom units like a --sp (spacing unit) equivalent to a 0.25rem or 4px.
 This would allow you also to define different vertical and horizontal spacing units.

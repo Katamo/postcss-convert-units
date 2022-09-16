@@ -1,6 +1,7 @@
 {
   "tasks": {
     "test": "deno test --allow-env src/spec/index.spec.ts",
-    "bundle": "deno bundle ./src/index.ts ./src/index.js"
+    "fmt": "deno fmt ./src/mod.ts",
+    "bundle": "deno task fmt && deno bundle ./src/mod.ts ./src/mod.js"
   }
 }

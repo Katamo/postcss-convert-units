@@ -1,11 +1,11 @@
-#usr/bin/sh
+#!/bin/sh
 
 rm -rf dist
 mkdir dist
 
+deno task bundle
 cp -rf src/* dist/
 
-deno task bundle
 mv src/index.js dist/index.js
 
 ls

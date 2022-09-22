@@ -7,10 +7,14 @@ const plugin = (opts)=>{
         postcssPlugin: "postcss-convert-units",
         Declaration: {
             "*": (decl)=>{
-                opts.rules.forEach((rule)=>{
-                    const regex = new RegExp(`(([\\d.]+)${rule.unitName})`, "g");
-                    decl.value = decl.value.replace(regex, (_match, _p1, p2)=>rule.convert(parseInt(p2)));
+                let str = decl.value;
+                Object.entries(opts.rules).forEach(([key, value])=>{
+                    const regex = new RegExp(`(([\\d.]+)?(${key})(?![a-zA-Z0-9_\-]))`, "g");
+                    str = str.replace(regex, (_match, _p1, _p2, _p3, _p4)=>{
+                        return value(parseInt(_p2));
+                    });
                 });
+                decl.value = str;
             }
         }
     };

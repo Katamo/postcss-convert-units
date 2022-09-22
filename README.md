@@ -23,25 +23,34 @@ We can use this plugin to work directly with px units and translate to rem in bu
 
 ## Usage
 
+### Import postCSS
+
 Import the postCSS core
+
 ```typesecript
 import postcss from "https://deno.land/x/postcss@8.4.16/mod.js";
 ```
 
+### Define your set of rules
+
 Define the unit transforms as an array of transforms of the opts object, in the following way:
 ```typescript
 const opts = {
-  rules: [
-    { unitName: "--sp", convert: (val: number) => `${val * 0.25}rem` }
-  ],
+  rules: {
+    "1--sp", (val: number) => `${val * 0.25}rem`
+  }
 };
 ```
+
+### Add the plugin to postCSS pipe
 
 Add the plugin with the transforms the postcss process
 ```typescript
   const result = await postcss(
     [plugin(opts)]).process(input);
 ```
+
+### Results
 
 This will transform your css files from:
 ```css
@@ -53,6 +62,41 @@ To this.
 ```css
   /* Output css file */
   a{ margin: 1rem;}
+```
+
+
+## Anatomy of a rule
+### Rules format
+
+`rules` is an object in the form of "rule" to apply and a transform function to be set as output.
+
+### Rule definition
+
+The plugin will lok for every rule defined in the rules object and will replace the value with the returned value from the trans form function. The rule can store a number set on the rule string start, this value will be passed as a param to the transform function. In the following example the number 4 will be pased as val to the transform function.
+
+```typescript
+const opts = {
+  rules: {
+    "4--border", (val: number) => `${val * 0.25}rem`
+  }
+};
+```
+
+### Transform function
+
+The transform function optionaly receives a param `value: number` set on the rule start string.
+
+### Define Rules in config files
+
+You can define several rulefiles following the regular format, just import them as js files and pass it to the plugin.
+```typescript
+import importedRules from './rulefile.example.js';
+
+const opts = {
+  rules: {
+    ...importedRules,
+  }
+}
 ```
 ## License
 

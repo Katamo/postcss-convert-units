@@ -4,16 +4,16 @@ import Declaration from "https://deno.land/x/postcss@8.4.16/lib/declaration.d.ts
 /**
  * type for transformation format
  */
-export type ruleType = {
-  unitName: string;
-  convert: (val: number) => string;
-};
+export type ruleType = Record<
+  string,
+  (((val: number) => string) | (() => string))
+>;
 
 /**
  * type for options passed to plugin
  */
 export interface optsType {
-  rules: ruleType[];
+  rules: ruleType;
 }
 
 /**
@@ -28,17 +28,27 @@ const plugin = (opts: optsType) => {
 
     Declaration: {
       "*": (decl: Declaration) => {
-        opts.rules.forEach(
-          (rule) => {
-            const regex = new RegExp(`(([\\d.]+)${rule.unitName})`, "g");
+        let str = decl.value;
+        // console.log(decl);
 
-            decl.value = decl.value.replace(
+        Object.entries(opts.rules).forEach(
+          ([key, value]) => {
+            // optionally a number followed by the key and not followed by any valid char more
+            const regex = new RegExp(
+              `(([\\d.]+)?(${key})(?![a-zA-Z0-9_\-]))`,
+              "g",
+            );
+
+            str = str.replace(
               regex,
-              (_match: string, _p1: string, p2: string) =>
-                rule.convert(parseInt(p2)),
+              (_match: string, _p1: string, _p2, _p3, _p4) => {
+                return value(parseInt(_p2));
+              },
             );
           },
         );
+
+        decl.value = str;
       },
     },
   };

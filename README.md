@@ -31,6 +31,7 @@ Or define `background: 2--blue;` transform it to `background: #3333FF;`
 ### Import postCSS.
 
 Import the postCSS core
+
 ```typesecript
 import postcss from "https://deno.land/x/postcss@8.4.16/mod.js";
 ```
@@ -40,9 +41,9 @@ import postcss from "https://deno.land/x/postcss@8.4.16/mod.js";
 Define the unit transforms as an array of transforms of the opts object, in the following way:
 ```typescript
 const opts = {
-  rules: [
-    { unitName: "--sp", convert: (val: number) => `${val * 0.25}rem` }
-  ],
+  rules: {
+    "1--sp", (val: number) => `${val * 0.25}rem`
+  }
 };
 ```
 

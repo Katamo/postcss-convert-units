@@ -19,9 +19,13 @@ Lots of developers prefers to translate designs to code by using pixels for dist
 Accesibility methodologies encourages the use of rems for common units.\
 We can use this plugin to work directly with px units and translate to rem in build time.\
 
-Define a `margin-top: 4--sp;` transform it to `margin-top: 1rem;`
+### Examples.
+Define numbers with units `margin-top: 4--sp;` transform it to `margin-top: 1rem;`
 
-Or define `background: 2--blue;` transform it to `background: #3333FF;`
+Define ordered values `background: 2--blue;` transform it to `background: #3333FF;`
+
+Define @media queries `@media (min-width: --from-md)` transform it to `@media (min-width: 768px)`
+
 
 
 > Note: It's made specifically for Deno the relevant code is in mod.ts, and that file is imported from Deno.
@@ -105,6 +109,10 @@ const opts = {
   }
 }
 ```
+
+### Context of application
+
+The rules can be applied in css prop values like: `margin: 1--sp` and `@media (--min-width)` @media elements.
 ## License.
 
 [MIT](LICENSE)

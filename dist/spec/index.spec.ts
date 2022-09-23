@@ -156,3 +156,36 @@ Deno.test("converts to css vars with css vars and values", async () => {
     },
   );
 });
+
+Deno.test("converts props values inside @media values", async () => {
+  await run(
+    "@media (min-width: --from-xs)",
+    "@media (min-width: 480px)",
+    {
+      rules: {"--from-xs": () => `480px` },
+    },
+  );
+});
+
+Deno.test("converts multiple props values inside @media values", async () => {
+  await run(
+    "@media (min-width: --from-xs) and (max-width: --from-md)",
+    "@media (min-width: 480px) and (max-width: 768px)",
+    {
+      rules: {
+        "--from-xs": () => `480px`,
+        "--from-md": () => `768px`,
+      }
+    },
+  );
+});
+
+Deno.test("converts complete @media props", async () => {
+  await run(
+    "@media (--from-xs)",
+    "@media (min-width: 480px)",
+    {
+      rules: {"--from-xs": () => `min-width: 480px` },
+    },
+  );
+});

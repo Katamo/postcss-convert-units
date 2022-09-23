@@ -1,5 +1,15 @@
 # Change Log
 
+## 2.1.0
+* Added props replacement inside @media 
+  Now we can define variables and transformations inside @media param
+
+* Added tests for @media
+  * converts props values inside @media values
+  * converts multiple props values inside @media values
+  * converts complete @media props
+## 2.0.1
+* Updated dist
 ## 2.0
 * Changed the rule format.
   rules are now defined as an object {"rule": ()=>{}} 
